@@ -1,7 +1,7 @@
 import pgraph
 import primitives
 import sex
-
+from utils.crc16 import CRC16
 import zlib
 import hashlib
 import struct
@@ -437,7 +437,7 @@ class block:
 
 ########################################################################################################################
 class checksum:
-    checksum_lengths = {"crc32":4, "adler32":4, "md5":16, "sha1":20}
+    checksum_lengths = {"crc16": 2, "crc32":4, "adler32":4, "md5":16, "sha1":20}
 
     def __init__(self, block_name, request, algorithm="crc32", length=0, endian="<", name=None):
         '''
@@ -449,7 +449,7 @@ class checksum:
         @type  request:    s_request
         @param request:    Request this block belongs to
         @type  algorithm:  String
-        @param algorithm:  (Optional, def=crc32) Checksum algorithm to use. (crc32, adler32, md5, sha1)
+        @param algorithm:  (Optional, def=crc32) Checksum algorithm to use. (crc16, crc32, adler32, md5, sha1)
         @type  length:     Integer
         @param length:     (Optional, def=0) Length of checksum, specify 0 to auto-calculate
         @type  endian:     Character
@@ -509,6 +509,8 @@ class checksum:
                     digest          = struct.pack(">LLLLL", a, b, c, d, e)
 
                 return digest
+            elif self.algorithm == "crc16":
+                    return struct.pack(self.endian+"H", CRC16(data).intchecksum())
 
             else:
                 raise sex.SullyRuntimeError("INVALID CHECKSUM ALGORITHM SPECIFIED: %s" % self.algorithm)
