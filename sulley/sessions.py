@@ -461,7 +461,8 @@ class session (pgraph.graph):
 
                         try:
                             # establish a connection to the target.
-                            sock = socket.socket(socket.AF_INET, self.proto)
+                            (family, socktype, proto, canonname, sockaddr)=socket.getaddrinfo(target.host, target.port)[0]
+                            sock = socket.socket(family, self.proto)
                         except Exception, e:
                             error_handler(e, "failed creating socket", target)
                             continue
