@@ -1,5 +1,8 @@
+# Lack of maintenance?
+If you're looking for an actively maintained fork of Sulley, take a look at [BooFuzz](https://github.com/jtpereyda/boofuzz).
+
 # What?
-Sulley is an actively developed fuzzing engine and fuzz testing framework consisting of multiple extensible components.
+Sulley is a fuzzing engine and fuzz testing framework consisting of multiple extensible components.
 Sulley (IMHO) exceeds the capabilities of most previously published fuzzing technologies, commercial and public domain.
 The goal of the framework is to simplify not only data representation but to simplify data transmission and 
 instrumentation. Sulley is affectionately named after the creature from Monsters Inc., because, well, he is fuzzy.
